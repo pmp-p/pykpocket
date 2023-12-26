@@ -1557,11 +1557,6 @@ void add_module_dis(VM* vm){
         vm->stdout_write(vm->disassemble(code));
         return vm->None;
     });
-
-    // vm->bind_func<1>(mod, "_s", [](VM* vm, ArgsView args) {
-    //     CodeObject_ code = get_code(vm, args[0]);
-    //     return VAR(code->serialize(vm));
-    // });
 }
 
 void add_module_gc(VM* vm){
@@ -1701,7 +1696,7 @@ void VM::post_init(){
 }
 
 CodeObject_ VM::compile(Str source, Str filename, CompileMode mode, bool unknown_global_scope) {
-    Compiler compiler(this, source, filename, mode, unknown_global_scope);
+    Compiler compiler(this, std::move(source), filename, mode, unknown_global_scope);
     try{
         return compiler.compile();
     }catch(Exception& e){

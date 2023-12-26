@@ -465,7 +465,7 @@ public:
     void delattr(PyObject* obj, StrName name);
     PyObject* get_unbound_method(PyObject* obj, StrName name, PyObject** self, bool throw_err=true, bool fallback=false);
     void parse_int_slice(const Slice& s, int length, int& start, int& stop, int& step);
-    PyObject* format(Str, PyObject*);
+    PyObject* _format_string(Str, PyObject*);
     void setattr(PyObject* obj, StrName name, PyObject* value);
     template<int ARGC>
     PyObject* bind_method(PyObject*, Str, NativeFuncC);
@@ -565,19 +565,17 @@ PY_VAR_INT(unsigned short)
 PY_VAR_INT(unsigned int)
 PY_VAR_INT(unsigned long)
 PY_VAR_INT(unsigned long long)
-
-
-#define PY_VAR_FLOAT(T)                             \
-    inline PyObject* py_var(VM* vm, T _val){        \
-        PK_UNUSED(vm);                              \
-        return tag_float(static_cast<f64>(_val));   \
-    }
-
-PY_VAR_FLOAT(float)
-PY_VAR_FLOAT(double)
-
 #undef PY_VAR_INT
-#undef PY_VAR_FLOAT
+
+inline PyObject* py_var(VM* vm, float _val){
+    PK_UNUSED(vm);
+    return tag_float(static_cast<f64>(_val));
+}
+
+inline PyObject* py_var(VM* vm, double _val){
+    PK_UNUSED(vm);
+    return tag_float(static_cast<f64>(_val));
+}
 
 inline PyObject* py_var(VM* vm, bool val){
     return val ? vm->True : vm->False;
