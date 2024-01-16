@@ -16,5 +16,5 @@ assert bool(0) == False
 assert bool(1) == True
 assert bool([]) == False
 assert bool("abc") == True
-assert bool([1,2]) == True
-assert bool('') == False
+assert bool([1, 2]) == True
+assert bool("") == False

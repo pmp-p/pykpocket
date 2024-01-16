@@ -16,5 +16,3 @@ b = (1, 2, 3)
 r.shuffle(a)
 assert r.choice(a) in a
 assert r.choice(b) in b
-
-

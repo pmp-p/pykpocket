@@ -8,6 +8,7 @@
 #         return f.__cache__[key]
 #     return wrapper
 
+
 class cache:
     def __init__(self, f):
         self.f = f

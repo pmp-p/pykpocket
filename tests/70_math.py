@@ -1,7 +1,9 @@
 from math import log, log10, log2, sin, cos, tan, e, pi, isnan, isinf, fabs, floor, ceil, sqrt
 
+
 def isclose(a, b):
-    return abs(a-b) < 0.000001
+    return abs(a - b) < 0.000001
+
 
 assert isclose(e, 2.718281828459045)
 assert isclose(pi, 3.141592653589793)
@@ -55,4 +57,3 @@ assert math.factorial(2) == 2
 assert math.factorial(3) == 6
 assert math.factorial(4) == 24
 assert math.factorial(5) == 120
-

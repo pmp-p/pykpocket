@@ -1,8 +1,9 @@
 #include "cJSON.h"
 #include "pocketpy/pocketpy.h"
 
-namespace pkpy {
+namespace pkpy
+{
 
-void add_module_cjson(VM* vm);
+void add_module_cjson (VM *vm);
 
-}   // namespace pkpy
+} // namespace pkpy

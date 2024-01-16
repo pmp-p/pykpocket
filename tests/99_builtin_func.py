@@ -1,27 +1,28 @@
 # test super:
-class TestSuperBase():
+class TestSuperBase:
     def __init__(self):
         self.base_attr = 1
-        
+
     def base_method(self):
         return self.base_attr
-    
+
     def error(self):
-        raise Exception('未能拦截错误')
-    
+        raise Exception("未能拦截错误")
+
 
 class TestSuperChild1(TestSuperBase):
     def __init__(self):
         super(TestSuperChild1, self).__init__()
-    
+
     def child_method(self):
         return super(TestSuperChild1, self).base_method()
-    
+
     def error_handling(self):
         try:
             super(TestSuperChild1, self).error()
         except:
             pass
+
 
 class TestSuperChild2(TestSuperBase):
     pass
@@ -54,35 +55,40 @@ class TestSuperNoBaseMethod(TestSuperBase):
     def __init__(self):
         super(TestSuperNoBaseMethod, self).append(1)
 
+
 try:
     t = TestSuperNoParent()
-    print('未能拦截错误')
+    print("未能拦截错误")
     exit(1)
 except:
     pass
 
 try:
     t = TestSuperNoBaseMethod()
-    print('未能拦截错误')
+    print("未能拦截错误")
     exit(1)
 except:
     pass
 
-class B():
+
+class B:
     pass
 
-class C():
+
+class C:
     def method(self):
         super(C, self).method()
 
-class D():
+
+class D:
     def method(self):
         super(B, self).method()
+
 
 try:
     c = C()
     c.method()
-    print('未能拦截错误')
+    print("未能拦截错误")
     exit(1)
 except:
     pass
@@ -90,7 +96,7 @@ except:
 try:
     d = D()
     d.method()
-    print('未能拦截错误')
+    print("未能拦截错误")
     exit(1)
 except:
     pass
@@ -105,42 +111,47 @@ assert hash(-456) == -456
 assert type(hash("hello")) is int
 
 # 测试浮点数类型的输入
-assert type(hash(3.14)) is int 
+assert type(hash(3.14)) is int
 assert type(hash(-2.71828)) is int
 
 # 测试边界情况
-assert type(hash(None)) is int 
+assert type(hash(None)) is int
 assert hash(True) == 1
 assert hash(False) == 0
 
 # 测试元组
-assert type(hash((4, 5, 6, (1234,1122), 2.3983, 'abcd'))) is int
+assert type(hash((4, 5, 6, (1234, 1122), 2.3983, "abcd"))) is int
+
 
 # 测试自定义类和对象的输入
-class A():
+class A:
     pass
+
 
 a = A()
 
 assert type(hash(A)) is int
 assert type(hash(a)) is int
 
+
 # 测试函数的输入
 def f():
     pass
+
+
 assert type(hash(a)) is int
 
 # 测试不可哈希对象
 try:
-    hash({1:1})
-    print('未能拦截错误')
+    hash({1: 1})
+    print("未能拦截错误")
     exit(1)
 except:
     pass
 
 try:
     hash([1])
-    print('未能拦截错误')
+    print("未能拦截错误")
     exit(1)
 except:
     pass
@@ -148,15 +159,146 @@ except:
 # test chr
 l = []
 for i in range(128):
-    l.append(f'{i} {chr(i)}')
-assert l == ['0 \x00', '1 \x01', '2 \x02', '3 \x03', '4 \x04', '5 \x05', '6 \x06', '7 \x07', '8 \x08', '9 \t', '10 \n', '11 \x0b', '12 \x0c', '13 \r', '14 \x0e', '15 \x0f', '16 \x10', '17 \x11', '18 \x12', '19 \x13', '20 \x14', '21 \x15', '22 \x16', '23 \x17', '24 \x18', '25 \x19', '26 \x1a', '27 \x1b', '28 \x1c', '29 \x1d', '30 \x1e', '31 \x1f', '32  ', '33 !', '34 "', '35 #', '36 $', '37 %', '38 &', "39 '", '40 (', '41 )', '42 *', '43 +', '44 ,', '45 -', '46 .', '47 /', '48 0', '49 1', '50 2', '51 3', '52 4', '53 5', '54 6', '55 7', '56 8', '57 9', '58 :', '59 ;', '60 <', '61 =', '62 >', '63 ?', '64 @', '65 A', '66 B', '67 C', '68 D', '69 E', '70 F', '71 G', '72 H', '73 I', '74 J', '75 K', '76 L', '77 M', '78 N', '79 O', '80 P', '81 Q', '82 R', '83 S', '84 T', '85 U', '86 V', '87 W', '88 X', '89 Y', '90 Z', '91 [', '92 \\', '93 ]', '94 ^', '95 _', '96 `', '97 a', '98 b', '99 c', '100 d', '101 e', '102 f', '103 g', '104 h', '105 i', '106 j', '107 k', '108 l', '109 m', '110 n', '111 o', '112 p', '113 q', '114 r', '115 s', '116 t', '117 u', '118 v', '119 w', '120 x', '121 y', '122 z', '123 {', '124 |', '125 }', '126 ~', '127 \x7f']
+    l.append(f"{i} {chr(i)}")
+assert l == [
+    "0 \x00",
+    "1 \x01",
+    "2 \x02",
+    "3 \x03",
+    "4 \x04",
+    "5 \x05",
+    "6 \x06",
+    "7 \x07",
+    "8 \x08",
+    "9 \t",
+    "10 \n",
+    "11 \x0b",
+    "12 \x0c",
+    "13 \r",
+    "14 \x0e",
+    "15 \x0f",
+    "16 \x10",
+    "17 \x11",
+    "18 \x12",
+    "19 \x13",
+    "20 \x14",
+    "21 \x15",
+    "22 \x16",
+    "23 \x17",
+    "24 \x18",
+    "25 \x19",
+    "26 \x1a",
+    "27 \x1b",
+    "28 \x1c",
+    "29 \x1d",
+    "30 \x1e",
+    "31 \x1f",
+    "32  ",
+    "33 !",
+    '34 "',
+    "35 #",
+    "36 $",
+    "37 %",
+    "38 &",
+    "39 '",
+    "40 (",
+    "41 )",
+    "42 *",
+    "43 +",
+    "44 ,",
+    "45 -",
+    "46 .",
+    "47 /",
+    "48 0",
+    "49 1",
+    "50 2",
+    "51 3",
+    "52 4",
+    "53 5",
+    "54 6",
+    "55 7",
+    "56 8",
+    "57 9",
+    "58 :",
+    "59 ;",
+    "60 <",
+    "61 =",
+    "62 >",
+    "63 ?",
+    "64 @",
+    "65 A",
+    "66 B",
+    "67 C",
+    "68 D",
+    "69 E",
+    "70 F",
+    "71 G",
+    "72 H",
+    "73 I",
+    "74 J",
+    "75 K",
+    "76 L",
+    "77 M",
+    "78 N",
+    "79 O",
+    "80 P",
+    "81 Q",
+    "82 R",
+    "83 S",
+    "84 T",
+    "85 U",
+    "86 V",
+    "87 W",
+    "88 X",
+    "89 Y",
+    "90 Z",
+    "91 [",
+    "92 \\",
+    "93 ]",
+    "94 ^",
+    "95 _",
+    "96 `",
+    "97 a",
+    "98 b",
+    "99 c",
+    "100 d",
+    "101 e",
+    "102 f",
+    "103 g",
+    "104 h",
+    "105 i",
+    "106 j",
+    "107 k",
+    "108 l",
+    "109 m",
+    "110 n",
+    "111 o",
+    "112 p",
+    "113 q",
+    "114 r",
+    "115 s",
+    "116 t",
+    "117 u",
+    "118 v",
+    "119 w",
+    "120 x",
+    "121 y",
+    "122 z",
+    "123 {",
+    "124 |",
+    "125 }",
+    "126 ~",
+    "127 \x7f",
+]
 
 assert type(bin(1234)) is str
 
+
 # test __repr__:
-class A():
+class A:
     def __init__(self):
         self.attr = 0
+
 
 repr(A())
 
@@ -177,48 +319,48 @@ repr(A())
 # test range:
 
 try:
-    range(1,2,3,4)
-    print('未能拦截错误, 在测试 range')
+    range(1, 2, 3, 4)
+    print("未能拦截错误, 在测试 range")
     exit(1)
 except:
     pass
 
 # /************ int ************/
 try:
-    int('asad')
-    print('未能拦截错误, 在测试 int')
+    int("asad")
+    print("未能拦截错误, 在测试 int")
     exit(1)
 except:
     pass
 
 try:
     int(123, 16)
-    print('未能拦截错误, 在测试 int')
+    print("未能拦截错误, 在测试 int")
     exit(1)
 except:
     pass
 
-assert type(10//11) is int
+assert type(10 // 11) is int
 
-assert type(11%2) is int
+assert type(11 % 2) is int
 
 try:
-    float('asad')
-    print('未能拦截错误, 在测试 float')
+    float("asad")
+    print("未能拦截错误, 在测试 float")
     exit(1)
 except:
     pass
 
 try:
     float([])
-    print('未能拦截错误, 在测试 float')
+    print("未能拦截错误, 在测试 float")
     exit(1)
 except:
     pass
 
 # /************ str ************/
 # test str.__rmul__:
-assert type(12 * '12') is str
+assert type(12 * "12") is str
 
 # 未完全测试准确性-----------------------------------------------
 #       116:  554:    _vm->bind_method<1>("str", "index", [](VM* vm, ArgsView args) {
@@ -229,10 +371,10 @@ assert type(12 * '12') is str
 #     #####:  559:        return VAR(index);
 #     #####:  560:    });
 # test str.index:
-assert type('25363546'.index('63')) is int
+assert type("25363546".index("63")) is int
 try:
-    '25363546'.index('err')
-    print('未能拦截错误, 在测试 str.index')
+    "25363546".index("err")
+    print("未能拦截错误, 在测试 str.index")
     exit(1)
 except:
     pass
@@ -245,8 +387,8 @@ except:
 #     #####:  565:        return VAR(self.index(sub));
 #         -:  566:    });
 # test str.find:
-assert type('25363546'.find('63')) is int
-assert type('25363546'.find('err')) is int
+assert type("25363546".find("63")) is int
+assert type("25363546".find("err")) is int
 
 
 # /************ list ************/
@@ -261,8 +403,8 @@ assert type('25363546'.find('err')) is int
 #        29:  622:    });
 # test list:
 try:
-    list(1,2)
-    print('未能拦截错误, 在测试 list')
+    list(1, 2)
+    print("未能拦截错误, 在测试 list")
     exit(1)
 except:
     pass
@@ -278,14 +420,13 @@ except:
 #     #####:  655:        return vm->None;
 #     #####:  656:    });
 # test list.index:
-assert type([1,2,3,4,5].index(4)) is int
+assert type([1, 2, 3, 4, 5].index(4)) is int
 try:
-    [1,2,3,4,5].index(6)
-    print('未能拦截错误, 在测试 list.index')
+    [1, 2, 3, 4, 5].index(6)
+    print("未能拦截错误, 在测试 list.index")
     exit(1)
 except:
     pass
-
 
 
 # 未完全测试准确性----------------------------------------------
@@ -303,8 +444,8 @@ except:
 #         1:  669:    });
 # test list.remove:
 try:
-    [1,2,3,4,5].remove(6)
-    print('未能拦截错误, 在测试 list.remove')
+    [1, 2, 3, 4, 5].remove(6)
+    print("未能拦截错误, 在测试 list.remove")
     exit(1)
 except:
     pass
@@ -329,12 +470,11 @@ except:
 #      1210:  686:    });
 # test list.pop:
 try:
-    [1,2,3,4,5].pop(1,2,3,4)
-    print('未能拦截错误, 在测试 list.pop')
+    [1, 2, 3, 4, 5].pop(1, 2, 3, 4)
+    print("未能拦截错误, 在测试 list.pop")
     exit(1)
 except:
     pass
-
 
 
 # 未完全测试准确性-----------------------------------------------
@@ -356,19 +496,19 @@ assert type(12 * [12]) is list
 #         -:  792:
 # test tuple:
 try:
-    tuple(1,2)
-    print('未能拦截错误, 在测试 tuple')
+    tuple(1, 2)
+    print("未能拦截错误, 在测试 tuple")
     exit(1)
 except:
     pass
 
-assert (1,2,3).__contains__(5) == False
+assert (1, 2, 3).__contains__(5) == False
 
-assert (1,2,2,3,3,3).count(3) == 3
-assert (1,2,2,3,3,3).count(0) == 0
+assert (1, 2, 2, 3, 3, 3).count(3) == 3
+assert (1, 2, 2, 3, 3, 3).count(0) == 0
 
-assert repr(True) == 'True'
-assert repr(False) == 'False'
+assert repr(True) == "True"
+assert repr(False) == "False"
 
 assert True & True == 1
 
@@ -410,11 +550,12 @@ assert type(s) is slice
 assert s.start == 1
 assert s.stop == 2
 assert s.step == 3
-assert slice.__dict__['start'].__signature__ == 'start'
+assert slice.__dict__["start"].__signature__ == "start"
 
 # 未完全测试准确性-----------------------------------------------
 # test slice.__repr__
-assert type(repr(slice(1,1,1))) is str
+assert type(repr(slice(1, 1, 1))) is str
+
 
 # /************ mappingproxy ************/
 # 未完全测试准确性-----------------------------------------------
@@ -425,9 +566,10 @@ assert type(repr(slice(1,1,1))) is str
 #     #####:  972:        return VAR(std::move(keys));
 #     #####:  973:    });
 # test mappingproxy.keys:
-class A():
+class A:
     def __init__(self):
         self.a = 10
+
     def method(self):
         pass
 
@@ -444,9 +586,10 @@ assert type(my_mappingproxy.keys()) is list
 #     #####:  979:        return VAR(std::move(values));
 #     #####:  980:    });
 # test mappingproxy.values:
-class A():
+class A:
     def __init__(self):
         self.a = 10
+
     def method(self):
         pass
 
@@ -455,9 +598,10 @@ my_mappingproxy = A().__dict__
 assert type(my_mappingproxy.values()) is list
 
 
-class A():
+class A:
     def __init__(self):
         self.a = 10
+
     def method(self):
         pass
 
@@ -466,9 +610,10 @@ my_mappingproxy = A().__dict__
 assert type(len(my_mappingproxy)) is int
 
 
-class A():
+class A:
     def __init__(self):
         self.a = 10
+
     def method(self):
         pass
 
@@ -477,28 +622,34 @@ my_mappingproxy = A().__dict__
 
 try:
     hash(my_mappingproxy)
-    print('未能拦截错误, 在测试 mappingproxy.__hash__')
+    print("未能拦截错误, 在测试 mappingproxy.__hash__")
     exit(1)
 except TypeError:
     pass
 
 a = hash(object())  # object is hashable
-a = hash(A())       # A is hashable
+a = hash(A())  # A is hashable
+
+
 class B:
-    def __eq__(self, o): return True
+    def __eq__(self, o):
+        return True
+
 
 try:
     hash(B())
-    print('未能拦截错误, 在测试 B.__hash__')
+    print("未能拦截错误, 在测试 B.__hash__")
     exit(1)
 except TypeError:
     pass
 
+
 # 未完全测试准确性-----------------------------------------------
 # test mappingproxy.__repr__:
-class A():
+class A:
     def __init__(self):
         self.a = 10
+
     def method(self):
         pass
 
@@ -529,32 +680,32 @@ assert type(repr(my_mappingproxy)) is str
 #     #####: 1050:        return vm->None;
 #        43: 1051:    });
 # test dict:
-assert type(dict([(1,2)])) is dict
+assert type(dict([(1, 2)])) is dict
 
 try:
     dict([(1, 2, 3)])
-    print('未能拦截错误, 在测试 dict')
+    print("未能拦截错误, 在测试 dict")
     exit(1)
 except:
     pass
 
 try:
     dict([(1, 2)], 1)
-    print('未能拦截错误, 在测试 dict')
+    print("未能拦截错误, 在测试 dict")
     exit(1)
 except:
     pass
 
 try:
-    hash(dict([(1,2)]))
-    print('未能拦截错误, 在测试 dict.__hash__')
+    hash(dict([(1, 2)]))
+    print("未能拦截错误, 在测试 dict.__hash__")
     exit(1)
 except:
     pass
 
 # test dict.__iter__
-for k in {1:2, 2:3, 3:4}:
-    assert k in [1,2,3]
+for k in {1: 2, 2: 3, 3: 4}:
+    assert k in [1, 2, 3]
 
 
 # 未完全测试准确性-----------------------------------------------
@@ -574,53 +725,56 @@ for k in {1:2, 2:3, 3:4}:
 #        25: 1111:    });
 # test dict.get
 
-assert {1:2, 3:4}.get(1) == 2
-assert {1:2, 3:4}.get(2) is None
-assert {1:2, 3:4}.get(20, 100) == 100
+assert {1: 2, 3: 4}.get(1) == 2
+assert {1: 2, 3: 4}.get(2) is None
+assert {1: 2, 3: 4}.get(20, 100) == 100
 
 try:
-    {1:2, 3:4}.get(1,1, 1)
-    print('未能拦截错误, 在测试 dict.get')
+    {1: 2, 3: 4}.get(1, 1, 1)
+    print("未能拦截错误, 在测试 dict.get")
     exit(1)
 except:
     pass
 
 # 未完全测试准确性-----------------------------------------------
 # test dict.__repr__
-assert type(repr({1:2, 3:4})) is str
+assert type(repr({1: 2, 3: 4})) is str
+
 
 # /************ property ************/
-class A():
+class A:
     def __init__(self):
-        self._name = '123'
+        self._name = "123"
 
     @property
     def value(self):
         return 2
 
     def get_name(self):
-        '''
+        """
         doc string 1
-        '''
+        """
         return self._name
 
     def set_name(self, val):
-        '''
+        """
         doc string 2
-        '''
+        """
         self._name = val
 
+
 assert A().value == 2
-assert A.__dict__['value'].__signature__ == ''
+assert A.__dict__["value"].__signature__ == ""
 
 A.name = property(A.get_name, A.set_name, "name: str")
-assert A.__dict__['name'].__signature__ == 'name: str'
+assert A.__dict__["name"].__signature__ == "name: str"
 try:
     property(A.get_name, A.set_name, 1)
-    print('未能拦截错误, 在测试 property')
+    print("未能拦截错误, 在测试 property")
     exit(1)
 except:
     pass
+
 
 class Vector2:
     def __init__(self) -> None:
@@ -629,10 +783,11 @@ class Vector2:
     @property
     def x(self):
         return self._x
-    
+
     @x.setter
     def x(self, val):
         self._x = val
+
 
 v = Vector2()
 assert v.x == 0
@@ -642,29 +797,36 @@ assert v.x == 10
 # /************ module timeit ************/
 import timeit
 
+
 def aaa():
     for i in range(10):
         for j in range(10):
             pass
-    
+
+
 assert type(timeit.timeit(aaa, 2)) is float
 
 
 # function.__doc__
 def aaa():
-    '12345'
+    "12345"
     pass
+
+
 assert type(aaa.__doc__) is str
 
 
 # function.__signature__
 def aaa():
     pass
+
+
 assert type(aaa.__signature__) is str
 
 
 # /************ module time ************/
 import time
+
 # 未完全测试准确性-----------------------------------------------
 #       116: 1267:    vm->bind_func<1>(mod, "sleep", [](VM* vm, ArgsView args) {
 #     #####: 1268:        f64 seconds = CAST_F(args[0]);
@@ -736,23 +898,26 @@ assert max(1, 2, 3) == 3
 assert max([1, 2]) == 2
 assert max([1, 2, 3], key=lambda x: -x) == 1
 
-assert min([
-    (1, 2),
-    (1, 3),
-    (1, 4),
-]) == (1, 2)
+assert min(
+    [
+        (1, 2),
+        (1, 3),
+        (1, 4),
+    ]
+) == (1, 2)
 
 assert min(1, 2) == 1
 assert max(1, 2) == 2
 
 
 # test callable
-assert callable(lambda: 1) is True          # function
-assert callable(1) is False                 # int
-assert callable(object) is True             # type
+assert callable(lambda: 1) is True  # function
+assert callable(1) is False  # int
+assert callable(object) is True  # type
 assert callable(object()) is False
-assert callable([].append) is True      # bound method
-assert callable([].__getitem__) is True # bound method
+assert callable([].append) is True  # bound method
+assert callable([].__getitem__) is True  # bound method
+
 
 class A:
     def __init__(self):
@@ -761,8 +926,9 @@ class A:
     def __call__(self):
         pass
 
-assert callable(A) is True      # type
-assert callable(A()) is True    # instance with __call__
+
+assert callable(A) is True  # type
+assert callable(A()) is True  # instance with __call__
 assert callable(A.__call__) is True  # bound method
 assert callable(A.__init__) is True  # bound method
 assert callable(print) is True  # builtin function

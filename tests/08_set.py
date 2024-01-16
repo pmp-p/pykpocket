@@ -73,10 +73,10 @@ assert c == {1, 2, 3}
 
 assert type({}) is dict
 
-assert {1,2}.issubset({1,2,3})
-assert {1,2,3}.issuperset({1,2})
-assert {1,2,3}.isdisjoint({4,5,6})
-assert not {1,2,3}.isdisjoint({2,3,4})
+assert {1, 2}.issubset({1, 2, 3})
+assert {1, 2, 3}.issuperset({1, 2})
+assert {1, 2, 3}.isdisjoint({4, 5, 6})
+assert not {1, 2, 3}.isdisjoint({2, 3, 4})
 
 # unpacking builder
 a = {1, 2, 3}

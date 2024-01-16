@@ -20,18 +20,12 @@ def test_date():
 
 
 def test_datetime():
-    assert datetime.datetime(
-        2023, 8, 5, 12, 0, 0) == datetime.datetime(2023, 8, 5, 12, 0, 0)
-    assert datetime.datetime(
-        2023, 8, 5, 12, 0, 0) != datetime.datetime(2023, 8, 5, 12, 1, 0)
-    assert datetime.datetime(
-        2023, 8, 5, 12, 0, 0) >= datetime.datetime(2023, 8, 5, 12, 0, 0)
-    assert datetime.datetime(
-        2023, 8, 5, 12, 30, 0) > datetime.datetime(2023, 8, 5, 12, 1, 0)
-    assert datetime.datetime(
-        2023, 8, 5, 12, 0, 0) < datetime.datetime(2023, 8, 5, 12, 1, 0)
-    assert datetime.datetime(
-        2023, 8, 5, 12, 0, 0) <= datetime.datetime(2023, 8, 5, 12, 1, 0)
+    assert datetime.datetime(2023, 8, 5, 12, 0, 0) == datetime.datetime(2023, 8, 5, 12, 0, 0)
+    assert datetime.datetime(2023, 8, 5, 12, 0, 0) != datetime.datetime(2023, 8, 5, 12, 1, 0)
+    assert datetime.datetime(2023, 8, 5, 12, 0, 0) >= datetime.datetime(2023, 8, 5, 12, 0, 0)
+    assert datetime.datetime(2023, 8, 5, 12, 30, 0) > datetime.datetime(2023, 8, 5, 12, 1, 0)
+    assert datetime.datetime(2023, 8, 5, 12, 0, 0) < datetime.datetime(2023, 8, 5, 12, 1, 0)
+    assert datetime.datetime(2023, 8, 5, 12, 0, 0) <= datetime.datetime(2023, 8, 5, 12, 1, 0)
 
 
 test_timedelta()
