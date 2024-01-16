@@ -1,6 +1,6 @@
 import os
 
-with open('include/pocketpy/pocketpy_c.h') as f:
+with open("include/pocketpy/pocketpy_c.h") as f:
     lines = f.readlines()
 
 a = []
@@ -9,29 +9,29 @@ for line in lines:
         _, ret, *body = line.split()
     else:
         continue
-    body = ' '.join(body)
+    body = " ".join(body)
     assert body.endswith(";")
     body = body[:-1]
 
-    if '(pkpy_vm*' in body:
-        body = body.replace('(pkpy_vm*', '(pkpy_vm* vm')
+    if "(pkpy_vm*" in body:
+        body = body.replace("(pkpy_vm*", "(pkpy_vm* vm")
 
-    if ret == 'void':
-        mock_string = ''
+    if ret == "void":
+        mock_string = ""
     else:
-        mock_string = ' '*4 + ret + ' returnValue;\n    return returnValue;'
+        mock_string = " " * 4 + ret + " returnValue;\n    return returnValue;"
 
-    a.append(
-        ret + ' ' + body + ' {\n' + mock_string + '\n}\n'
-    )
+    a.append(ret + " " + body + " {\n" + mock_string + "\n}\n")
 
-with open('src2/pocketpy_c.c', 'w') as f:
-    f.write('''
+with open("src2/pocketpy_c.c", "w") as f:
+    f.write(
+        """
 #include "pocketpy_c.h"
 
 #ifdef _WIN32
 #pragma warning(disable: 4700)
 #endif
             
-''')
-    f.write('\n'.join(a))
+"""
+    )
+    f.write("\n".join(a))

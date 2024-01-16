@@ -6,7 +6,7 @@ import builtins
 
 dd_dict_keys = sorted(defaultdict.__dict__.keys())
 d_dict_keys = sorted(dict.__dict__.keys())
-d_dict_keys.remove('__new__')
+d_dict_keys.remove("__new__")
 if dd_dict_keys != d_dict_keys:
     print("dd_dict_keys:", dd_dict_keys)
     print("d_dict_keys:", d_dict_keys)
@@ -31,8 +31,12 @@ assert q == deque([1, 2])
 
 def assertEqual(a, b):
     assert a == b
+
+
 def assertNotEqual(a, b):
     assert a != b
+
+
 def printFailed(function_name, *args, **kwargs):
     print("X Failed Tests for {} for args: {} {}".format(str(function_name), str(args), str(kwargs)))
 
@@ -85,7 +89,7 @@ except AttributeError:
 it = iter(range(10))
 d = deque(it, maxlen=3)
 assertEqual(list(it), [])
-assertEqual(repr(d), 'deque([7, 8, 9], maxlen=3)')
+assertEqual(repr(d), "deque([7, 8, 9], maxlen=3)")
 assertEqual(list(d), [7, 8, 9])
 assertEqual(d, deque(range(10), 3))
 d.append(10)
@@ -98,9 +102,9 @@ d.extendleft([8, 7])
 assertEqual(list(d), [7, 8, 9])
 d = deque(range(200), maxlen=10)
 d.append(d)
-assertEqual(repr(d)[-30:], ', 198, 199, [...]], maxlen=10)')
+assertEqual(repr(d)[-30:], ", 198, 199, [...]], maxlen=10)")
 d = deque(range(10), maxlen=None)
-assertEqual(repr(d), 'deque([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])')
+assertEqual(repr(d), "deque([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])")
 
 ####### TEST maxlen = 0###############
 it = iter(range(100))
@@ -121,12 +125,12 @@ assertEqual(list(it), [])
 ####### TEST maxlen attribute #############
 
 assertEqual(deque().maxlen, None)
-assertEqual(deque('abc').maxlen, None)
-assertEqual(deque('abc', maxlen=4).maxlen, 4)
-assertEqual(deque('abc', maxlen=2).maxlen, 2)
-assertEqual(deque('abc', maxlen=0).maxlen, 0)
+assertEqual(deque("abc").maxlen, None)
+assertEqual(deque("abc", maxlen=4).maxlen, 4)
+assertEqual(deque("abc", maxlen=2).maxlen, 2)
+assertEqual(deque("abc", maxlen=0).maxlen, 0)
 try:
-    d = deque('abc')
+    d = deque("abc")
     d.maxlen = 10
     printFailed("deque.maxlen", 10)
     exit(1)
@@ -134,10 +138,10 @@ except AttributeError:
     pass
 
 ######### TEST count()#################
-for s in ('', 'abracadabra', 'simsalabim'*500+'abc'):
+for s in ("", "abracadabra", "simsalabim" * 500 + "abc"):
     s = list(s)
     d = deque(s)
-    for letter in 'abcdefghijklmnopqrstuvwxyz':
+    for letter in "abcdefghijklmnopqrstuvwxyz":
         assertEqual(s.count(letter), d.count(letter))
 try:
     d.count()
@@ -153,7 +157,10 @@ try:
 except TypeError:
     pass
 
-class ArithmeticError(Exception): pass
+
+class ArithmeticError(Exception):
+    pass
+
 
 class BadCompare:
     def __eq__(self, other):
@@ -195,7 +202,7 @@ try:
 except RuntimeError:
     pass
 
-d = deque([None]*16)
+d = deque([None] * 16)
 for i in range(len(d)):
     d.rotate(-1)
 d.rotate(1)
@@ -204,13 +211,13 @@ assertEqual(d.count(None), 16)
 
 #### TEST comparisons == #####
 
-d = deque('xabc')
+d = deque("xabc")
 d.popleft()
-for e in [d, deque('abc'), deque('ab'), deque(), list(d)]:
+for e in [d, deque("abc"), deque("ab"), deque(), list(d)]:
     assertEqual(d == e, type(d) == type(e) and list(d) == list(e))
     assertEqual(d != e, not (type(d) == type(e) and list(d) == list(e)))
 
-args = map(deque, ('', 'a', 'b', 'ab', 'ba', 'abc', 'xba', 'xabc', 'cba'))
+args = map(deque, ("", "a", "b", "ab", "ba", "abc", "xba", "xabc", "cba"))
 for x in args:
     for y in args:
         assertEqual(x == y, list(x) == list(y))
@@ -228,7 +235,7 @@ n = 200
 d = deque(range(n))
 for i in range(n):
     assertEqual(i in d, True)
-assertEqual((n+1) not in d, True)
+assertEqual((n + 1) not in d, True)
 
 
 class MutateCmp:
@@ -243,7 +250,7 @@ class MutateCmp:
 
 # # Test detection of mutation during iteration
 d = deque(range(n))
-d[n//2] = MutateCmp(d, False)
+d[n // 2] = MutateCmp(d, False)
 try:
     n in d
     printFailed("deque.__contains__", n)
@@ -259,7 +266,7 @@ class BadCmp:
 
 # # Test detection of comparison exceptions
 d = deque(range(n))
-d[n//2] = BadCmp()
+d[n // 2] = BadCmp()
 try:
     n in d
     printFailed("deque.__contains__", n)
@@ -269,6 +276,7 @@ except RuntimeError:
 
 
 ##### test_contains_count_stop_crashes#####
+
 
 class A:
     def __eq__(self, other):
@@ -297,31 +305,31 @@ except RuntimeError:
 ######## TEST extend()################
 
 
-d = deque('a')
+d = deque("a")
 try:
     d.extend(1)
     printFailed("deque.extend", 1)
     exit(1)
 except TypeError:
     pass
-d.extend('bcd')
-assertEqual(list(d), list('abcd'))
+d.extend("bcd")
+assertEqual(list(d), list("abcd"))
 d.extend(d)
-assertEqual(list(d), list('abcdabcd'))
+assertEqual(list(d), list("abcdabcd"))
 
 ###### TEST extend_left() ################
 
-d = deque('a')
+d = deque("a")
 try:
     d.extendleft(1)
     printFailed("deque.extendleft", 1)
     exit(1)
 except TypeError:
     pass
-d.extendleft('bcd')
-assertEqual(list(d), list(reversed('abcd')))
+d.extendleft("bcd")
+assertEqual(list(d), list(reversed("abcd")))
 d.extendleft(d)
-assertEqual(list(d), list('abcddcba'))
+assertEqual(list(d), list("abcddcba"))
 d = deque()
 d.extendleft(range(1000))
 assertEqual(list(d), list(reversed(range(1000))))
@@ -343,12 +351,12 @@ for i in range(n):
     if random.random() < 0.5:
         d.append(i)
         l.append(i)
-    for j in range(1-len(l), len(l)):
+    for j in range(1 - len(l), len(l)):
         assert d[j] == l[j]
 
-d = deque('superman')
-assertEqual(d[0], 's')
-assertEqual(d[-1], 'n')
+d = deque("superman")
+assertEqual(d[0], "s")
+assertEqual(d[-1], "n")
 d = deque()
 try:
     d.__getitem__(0)
@@ -366,21 +374,20 @@ except IndexError:
 
 ######### TEST index()###############
 for n in 1, 2, 30, 40, 200:
-
     d = deque(range(n))
     for i in range(n):
         assertEqual(d.index(i), i)
 
     try:
-        d.index(n+1)
-        printFailed("deque.index", n+1)
+        d.index(n + 1)
+        printFailed("deque.index", n + 1)
         exit(1)
     except ValueError:
         pass
 
     # Test detection of mutation during iteration
     d = deque(range(n))
-    d[n//2] = MutateCmp(d, False)
+    d[n // 2] = MutateCmp(d, False)
 
     try:
         d.index(n)
@@ -391,7 +398,7 @@ for n in 1, 2, 30, 40, 200:
 
     # Test detection of comparison exceptions
     d = deque(range(n))
-    d[n//2] = BadCmp()
+    d[n // 2] = BadCmp()
 
     try:
         d.index(n)
@@ -434,43 +441,43 @@ for step in range(100):
     d.rotate()
 
 ########### test_index_bug_24913#############
-d = deque('A' * 3)
+d = deque("A" * 3)
 try:
-    d.index('A', 1, 0)
-    printFailed("deque.index", 'A', 1, 0)
+    d.index("A", 1, 0)
+    printFailed("deque.index", "A", 1, 0)
     exit(1)
 except ValueError:
     pass
 
 ########### test_insert#############
-   # Test to make sure insert behaves like lists
-elements = 'ABCDEFGHI'
-for i in range(-5 - len(elements)*2, 5 + len(elements) * 2):
-    d = deque('ABCDEFGHI')
-    s = list('ABCDEFGHI')
-    d.insert(i, 'Z')
-    s.insert(i, 'Z')
+# Test to make sure insert behaves like lists
+elements = "ABCDEFGHI"
+for i in range(-5 - len(elements) * 2, 5 + len(elements) * 2):
+    d = deque("ABCDEFGHI")
+    s = list("ABCDEFGHI")
+    d.insert(i, "Z")
+    s.insert(i, "Z")
     assertEqual(list(d), s)
 
 
 ########### test_insert_bug_26194#############
-data = 'ABC'
+data = "ABC"
 d = deque(data, maxlen=len(data))
 try:
-    d.insert(0, 'Z')
-    printFailed("deque.insert", 0, 'Z')
+    d.insert(0, "Z")
+    printFailed("deque.insert", 0, "Z")
     exit(1)
 except IndexError:
     pass
 
-elements = 'ABCDEFGHI'
+elements = "ABCDEFGHI"
 for i in range(-len(elements), len(elements)):
-    d = deque(elements, maxlen=len(elements)+1)
-    d.insert(i, 'Z')
+    d = deque(elements, maxlen=len(elements) + 1)
+    d.insert(i, "Z")
     if i >= 0:
-        assertEqual(d[i], 'Z')
+        assertEqual(d[i], "Z")
     else:
-        assertEqual(d[i-1], 'Z')
+        assertEqual(d[i - 1], "Z")
 
 
 ######### test set_item #############
@@ -478,20 +485,20 @@ n = 200
 d = deque(range(n))
 for i in range(n):
     d[i] = 10 * i
-assertEqual(list(d), [10*i for i in range(n)])
+assertEqual(list(d), [10 * i for i in range(n)])
 l = list(d)
-for i in range(1-n, 0, -1):
-    d[i] = 7*i
-    l[i] = 7*i
+for i in range(1 - n, 0, -1):
+    d[i] = 7 * i
+    l[i] = 7 * i
 assertEqual(list(d), l)
 
 
 ########## test del_item #############
-n = 500         # O(n**2) test, don't make this too big
+n = 500  # O(n**2) test, don't make this too big
 d = deque(range(n))
 try:
-    d.__delitem__(-n-1)
-    printFailed("deque.__delitem__", -n-1)
+    d.__delitem__(-n - 1)
+    printFailed("deque.__delitem__", -n - 1)
     exit(1)
 except IndexError:
     pass
@@ -503,8 +510,8 @@ try:
 except IndexError:
     pass
 for i in range(n):
-    assertEqual(len(d), n-i)
-    j = random.randint(0, len(d)-1)
+    assertEqual(len(d), n - i)
+    j = random.randint(0, len(d) - 1)
     val = d[j]
     assertEqual(val in d, True)
     del d[j]
@@ -514,7 +521,7 @@ assertEqual(len(d), 0)
 
 ######### test reverse()###############
 
-n = 500         # O(n**2) test, don't make this too big
+n = 500  # O(n**2) test, don't make this too big
 data = [random.random() for i in range(n)]
 for i in range(n):
     d = deque(data[:i])
@@ -531,48 +538,48 @@ except TypeError:
     pass
 
 ############ test rotate#############
-s = tuple('abcde')
+s = tuple("abcde")
 n = len(s)
 
 d = deque(s)
-d.rotate(1)             # verify rot(1)
-assertEqual(''.join(d), 'eabcd')
+d.rotate(1)  # verify rot(1)
+assertEqual("".join(d), "eabcd")
 
 d = deque(s)
-d.rotate(-1)            # verify rot(-1)
-assertEqual(''.join(d), 'bcdea')
-d.rotate()              # check default to 1
+d.rotate(-1)  # verify rot(-1)
+assertEqual("".join(d), "bcdea")
+d.rotate()  # check default to 1
 assertEqual(tuple(d), s)
 
-for i in range(n*3):
+for i in range(n * 3):
     d = deque(s)
     e = deque(d)
-    d.rotate(i)         # check vs. rot(1) n times
+    d.rotate(i)  # check vs. rot(1) n times
     for j in range(i):
         e.rotate(1)
     assertEqual(tuple(d), tuple(e))
-    d.rotate(-i)        # check that it works in reverse
+    d.rotate(-i)  # check that it works in reverse
     assertEqual(tuple(d), s)
-    e.rotate(n-i)       # check that it wraps forward
+    e.rotate(n - i)  # check that it wraps forward
     assertEqual(tuple(e), s)
 
-for i in range(n*3):
+for i in range(n * 3):
     d = deque(s)
     e = deque(d)
     d.rotate(-i)
     for j in range(i):
-        e.rotate(-1)    # check vs. rot(-1) n times
+        e.rotate(-1)  # check vs. rot(-1) n times
     assertEqual(tuple(d), tuple(e))
-    d.rotate(i)         # check that it works in reverse
+    d.rotate(i)  # check that it works in reverse
     assertEqual(tuple(d), s)
-    e.rotate(i-n)       # check that it wraps backaround
+    e.rotate(i - n)  # check that it wraps backaround
     assertEqual(tuple(e), s)
 
 d = deque(s)
 e = deque(s)
-e.rotate(BIG+17)        # verify on long series of rotates
+e.rotate(BIG + 17)  # verify on long series of rotates
 dr = d.rotate
-for i in range(BIG+17):
+for i in range(BIG + 17):
     dr()
 assertEqual(tuple(d), tuple(e))
 try:
@@ -589,13 +596,13 @@ try:
 except TypeError:
     pass
 d = deque()
-d.rotate()              # rotate an empty deque
+d.rotate()  # rotate an empty deque
 assertEqual(d, deque())
 
 
 ########## test len#############
 
-d = deque('ab')
+d = deque("ab")
 assertEqual(len(d), 2)
 d.popleft()
 assertEqual(len(d), 1)
@@ -608,9 +615,9 @@ try:
 except IndexError:
     pass
 assertEqual(len(d), 0)
-d.append('c')
+d.append("c")
 assertEqual(len(d), 1)
-d.appendleft('d')
+d.appendleft("d")
 assertEqual(len(d), 2)
 d.clear()
 assertEqual(len(d), 0)
@@ -637,30 +644,30 @@ assertEqual(len(d), 100)
 d.clear()
 assertEqual(len(d), 0)
 assertEqual(list(d), [])
-d.clear()               # clear an empty deque
+d.clear()  # clear an empty deque
 assertEqual(list(d), [])
 
 
 ############# test remove#############
-d = deque('abcdefghcij')
-d.remove('c')
-assertEqual(d, deque('abdefghcij'))
-d.remove('c')
-assertEqual(d, deque('abdefghij'))
+d = deque("abcdefghcij")
+d.remove("c")
+assertEqual(d, deque("abdefghcij"))
+d.remove("c")
+assertEqual(d, deque("abdefghij"))
 try:
-    d.remove('c')
+    d.remove("c")
     printFailed("deque.remove", "c")
     exit(1)
 except ValueError:
     pass
-assertEqual(d, deque('abdefghij'))
+assertEqual(d, deque("abdefghij"))
 
 # Handle comparison errors
-d = deque(['a', 'b', BadCmp(), 'c'])
+d = deque(["a", "b", BadCmp(), "c"])
 e = deque(d)
 
 try:
-    d.remove('c')
+    d.remove("c")
     printFailed("deque.remove", "c")
     exit(1)
 except RuntimeError:
@@ -671,10 +678,10 @@ for x, y in zip(d, e):
 
 # Handle evil mutator
 for match in (True, False):
-    d = deque(['ab'])
-    d.extend([MutateCmp(d, match), 'c'])
+    d = deque(["ab"])
+    d.extend([MutateCmp(d, match), "c"])
     try:
-        d.remove('c')
+        d.remove("c")
         printFailed("deque.remove", "c")
         exit(1)
     except IndexError:
@@ -687,14 +694,14 @@ d = deque(range(200))
 e = eval(repr(d))
 assertEqual(list(d), list(e))
 d.append(d)
-assertEqual(repr(d)[-20:], '7, 198, 199, [...]])')
+assertEqual(repr(d)[-20:], "7, 198, 199, [...]])")
 
 
 ######### test init #############
 
 try:
-    deque('abc', 2, 3)
-    printFailed("deque", 'abc', 2, 3)
+    deque("abc", 2, 3)
+    printFailed("deque", "abc", 2, 3)
     exit(1)
 except TypeError:
     pass
@@ -708,7 +715,7 @@ except TypeError:
 
 ######### test hash #############
 try:
-    hash(deque('abcd'))
+    hash(deque("abcd"))
 except TypeError:
     pass
 
@@ -721,8 +728,8 @@ for size in (0, 1, 2, 100, 1000):
         append(i)
         x = pop()
         if x != i - size:
-            assertEqual(x, i-size)
-    assertEqual(list(d), list(range(BIG-size, BIG)))
+            assertEqual(x, i - size)
+    assertEqual(list(d), list(range(BIG - size, BIG)))
 
 
 ######## test long steady state queue pop right ########
@@ -733,9 +740,8 @@ for size in (0, 1, 2, 100, 1000):
         append(i)
         x = pop()
         if x != i - size:
-            assertEqual(x, i-size)
-    assertEqual(list(reversed(list(d))),
-                list(range(BIG-size, BIG)))
+            assertEqual(x, i - size)
+    assertEqual(list(reversed(list(d))), list(range(BIG - size, BIG)))
 
 ###### test big queue popleft ########
 d = deque()
@@ -822,7 +828,7 @@ assertEqual(list(d), list(e))
 
 ### test reversed#$####
 
-for s in ('abcd', range(2000)):
+for s in ("abcd", range(2000)):
     assertEqual(list(reversed(deque(s))), list(reversed(s)))
 
 

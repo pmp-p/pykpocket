@@ -11,6 +11,7 @@ while True:
 
 assert total == 6
 
+
 class Task:
     def __init__(self, n):
         self.n = n
@@ -24,6 +25,7 @@ class Task:
             return StopIteration
         self.i += 1
         return self.i
+
 
 a = Task(3)
 assert sum(a) == 6

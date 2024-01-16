@@ -8,12 +8,14 @@ class A:
 
     def sub(self):
         return self.a - self.b
-    
+
+
 a = A(1, 2)
 assert a.add() == 3
 assert a.sub() == -1
 
 assert A.__base__ is object
+
 
 class B(A):
     def __init__(self, a, b, c):
@@ -26,11 +28,13 @@ class B(A):
     def sub(self):
         return self.a - self.b - self.c
 
-assert B.__base__ is A    
+
+assert B.__base__ is A
 
 b = B(1, 2, 3)
 assert b.add() == 6
 assert b.sub() == -4
+
 
 class C(B):
     def __init__(self, a, b, c, d):
@@ -42,12 +46,14 @@ class C(B):
 
     def sub(self):
         return self.a - self.b - self.c - self.d
-    
+
+
 assert C.__base__ is B
 
 c = C(1, 2, 3, 4)
 assert c.add() == 10
 assert c.sub() == -8
+
 
 class D(C):
     def __init__(self, a, b, c, d, e):
@@ -59,7 +65,8 @@ class D(C):
 
     def sub(self):
         return super(D, self).sub() - self.e
-    
+
+
 assert D.__base__ is C
 
 d = D(1, 2, 3, 4, 5)
@@ -95,21 +102,26 @@ try:
 except TypeError:
     pass
 
+
 class A:
     a = 1
     b = 2
 
+
 assert A.a == 1
 assert A.b == 2
+
 
 class B(A):
     b = 3
     c = 4
 
+
 assert B.b == 3
 assert B.c == 4
 
 assert B.a == 1
+
 
 class A:
     x = 1
@@ -117,14 +129,17 @@ class A:
     y = 1
     z = x + y
 
+
 assert A.x == 2
 assert A.y == 1
 assert A.z == 3
 
+
 class MyClass:
-    a = 1,2,3
+    a = 1, 2, 3
     b, c = 1, 2
     d = b + c
+
 
 assert MyClass.a == (1, 2, 3)
 assert MyClass.b == 1

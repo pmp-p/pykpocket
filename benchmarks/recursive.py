@@ -3,4 +3,5 @@ def f(n):
         return -1
     return f(n + 1)
 
+
 assert f(0) == -1

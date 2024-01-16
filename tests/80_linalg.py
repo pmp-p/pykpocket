@@ -9,12 +9,14 @@ assert repr(math) == "<module 'math'>"
 
 # test vec2--------------------------------------------------------------------
 
+
 def rotated_vec2(vec_2, radians: float):
     cos_theta = math.cos(radians)
     sin_theta = math.sin(radians)
     new_x = vec_2.x * cos_theta - vec_2.y * sin_theta
     new_y = vec_2.x * sin_theta + vec_2.y * cos_theta
     return vec2(new_x, new_y)
+
 
 # 生成随机测试目标
 min_num = -10.0
@@ -25,18 +27,18 @@ static_test_vec2_float = vec2(3.18, -1.09)
 static_test_vec2_int = vec2(278, -1391)
 
 # test __repr__
-assert str(static_test_vec2_float).startswith('vec2(')
-assert str(static_test_vec2_int).startswith('vec2(')
+assert str(static_test_vec2_float).startswith("vec2(")
+assert str(static_test_vec2_int).startswith("vec2(")
 
 # test copy
-element_name_list = [e for e in dir(test_vec2) if e in 'x,y,z,w']
+element_name_list = [e for e in dir(test_vec2) if e in "x,y,z,w"]
 element_value_list = [getattr(test_vec2, attr) for attr in element_name_list]
 copy_element_value_list = [getattr(test_vec2.copy(), attr) for attr in element_name_list]
 assert element_value_list == copy_element_value_list
 
 # test rotate
 test_vec2_copy = test_vec2.copy()
-radians = random.uniform(-10*math.pi, 10*math.pi)
+radians = random.uniform(-10 * math.pi, 10 * math.pi)
 test_vec2_copy = rotated_vec2(test_vec2_copy, radians)
 assert test_vec2.rotate(radians).__dict__ == test_vec2_copy.__dict__
 
@@ -55,11 +57,11 @@ static_test_vec3_float = vec3(3.1886954323, -1098399.59932453432, 9.000000000000
 static_test_vec3_int = vec3(278, -13919730938747, 1364223456756456)
 
 # test __repr__
-assert str(static_test_vec3_float).startswith('vec3(')
-assert str(static_test_vec3_int).startswith('vec3(')
+assert str(static_test_vec3_float).startswith("vec3(")
+assert str(static_test_vec3_int).startswith("vec3(")
 
 # test copy
-element_name_list = ['x', 'y', 'z']
+element_name_list = ["x", "y", "z"]
 element_value_list = [getattr(test_vec3, attr) for attr in element_name_list]
 copy_element_value_list = [getattr(test_vec3.copy(), attr) for attr in element_name_list]
 assert element_value_list == copy_element_value_list
@@ -73,11 +75,11 @@ static_test_vec4_float = vec4(3.1886954323, -1098399.59932453432, 9.000000000000
 static_test_vec4_int = vec4(278, -13919730938747, 1364223456756456, -37)
 
 # test __repr__
-assert str(static_test_vec4_float).startswith('vec4(')
-assert str(static_test_vec4_int).startswith('vec4(')
+assert str(static_test_vec4_float).startswith("vec4(")
+assert str(static_test_vec4_int).startswith("vec4(")
 
 # test copy
-element_name_list = ['x', 'y', 'z', 'w']
+element_name_list = ["x", "y", "z", "w"]
 element_value_list = [getattr(test_vec4, attr) for attr in element_name_list]
 copy_element_value_list = [getattr(test_vec4.copy(), attr) for attr in element_name_list]
 assert element_value_list == copy_element_value_list
@@ -85,62 +87,68 @@ assert element_value_list == copy_element_value_list
 
 # test mat3x3--------------------------------------------------------------------
 def mat_to_str_list(mat):
-    ret = [[0,0,0], [0,0,0], [0,0,0]]
+    ret = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i in range(3):
         for j in range(3):
             ret[i][j] = str(round(mat[i, j], 2))[:6]
     return ret
 
+
 def mat_list_to_str_list(mat_list):
-    ret = [[0,0,0], [0,0,0], [0,0,0]]
+    ret = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i in range(3):
         for j in range(3):
             ret[i][j] = str(round(mat_list[i][j], 2))[:6]
     return ret
 
+
 def mat_to_list(mat):
-    ret = [[0,0,0], [0,0,0], [0,0,0]]
+    ret = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i in range(3):
         for j in range(3):
             ret[i][j] = mat[i, j]
     return ret
-    
+
+
 def mat_round(mat, pos):
-    '''
+    """
     对mat的副本的每一个元素执行round(element, pos)，返回副本
     用于校对元素是浮点数的矩阵
-    '''
+    """
     ret = mat.copy()
-    
+
     for i, row in enumerate(ret):
         for j, element in enumerate(row):
             row[j] = round(element, pos)
         ret[i] = row
-    
+
     return ret
 
+
 def get_row(mat, row_index):
-    '''
+    """
     返回mat的row_index行元素构成的列表
-    '''
+    """
     ret = []
     for i in range(3):
         ret.append(mat[row_index, i])
     return ret
 
+
 def get_col(mat, col_index):
-    '''
+    """
     返回mat的col_index列元素构成的列表
-    '''
+    """
     ret = []
     for i in range(3):
         ret.append(mat[i, col_index])
     return ret
 
+
 def calculate_inverse(matrix):
-    '''
+    """
     返回逆矩阵
-    '''
+    """
     # 获取矩阵的行数和列数
     rows = len(matrix)
     cols = len(matrix[0])
@@ -156,7 +164,7 @@ def calculate_inverse(matrix):
         pivot = augmented_matrix[i][i]
         if pivot == 0:
             raise ValueError("输入矩阵不可逆")
-        scale_row(augmented_matrix, i, 1/pivot)
+        scale_row(augmented_matrix, i, 1 / pivot)
         for j in range(cols):
             if j != i:
                 scale = augmented_matrix[j][i]
@@ -165,44 +173,51 @@ def calculate_inverse(matrix):
     inverse_matrix = [row[cols:] for row in augmented_matrix]
     return inverse_matrix
 
+
 def scale_row(matrix, row, scale):
     matrix[row] = [element * scale for element in matrix[row]]
 
+
 def row_operation(matrix, target_row, source_row, scale):
-    matrix[target_row] = [target_element + scale * source_element for target_element, source_element in zip(matrix[target_row], matrix[source_row])]
+    matrix[target_row] = [
+        target_element + scale * source_element for target_element, source_element in zip(matrix[target_row], matrix[source_row])
+    ]
+
+
 # 生成随机测试目标
 min_num = -10.0
 max_num = 10.0
 test_mat = mat3x3([random.uniform(min_num, max_num) for _ in range(9)])
-static_test_mat_float= mat3x3(
-    7.264189733952545, -5.432187523625671, 1.8765304152872613,
-    -2.4910524352374734, 8.989660807513068, -0.7168824333280513,
-    9.558042327611506, -3.336280256662496, 4.951381528057387
+static_test_mat_float = mat3x3(
+    7.264189733952545,
+    -5.432187523625671,
+    1.8765304152872613,
+    -2.4910524352374734,
+    8.989660807513068,
+    -0.7168824333280513,
+    9.558042327611506,
+    -3.336280256662496,
+    4.951381528057387,
 )
 
-static_test_mat_float_inv = mat3x3( 0.32265243,  0.15808159, -0.09939472,
-        0.04199553,  0.13813096,  0.00408326,
-       -0.59454451, -0.21208362,  0.39658464)
+static_test_mat_float_inv = mat3x3(
+    0.32265243, 0.15808159, -0.09939472, 0.04199553, 0.13813096, 0.00408326, -0.59454451, -0.21208362, 0.39658464
+)
 
-static_test_mat_int = mat3x3([
-        1, 2, 3,
-        4, 5, 6,
-        7, 8, 9]
-    )
+static_test_mat_int = mat3x3([1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 # test incorrect number of parameters is passed
 for i in range(20):
-    
     if i in [0, 9]:
         continue
-    
+
     try:
-        test_mat_copy = mat3x3(*tuple([e+0.1 for e in range(i)]))
-        
+        test_mat_copy = mat3x3(*tuple([e + 0.1 for e in range(i)]))
+
         # 既然参数数量不是合法的0个或9个,并且这里也没有触发TypeError,那么引发测试失败
-        print(f'When there are {i} arguments, no TypeError is triggered')
+        print(f"When there are {i} arguments, no TypeError is triggered")
         exit(1)
-        
+
     except TypeError:
         pass
 
@@ -211,11 +226,11 @@ test_mat_copy = test_mat.copy()
 element_name_list = []
 for i in range(3):
     for j in range(3):
-        element_name_list.append(f'_{i+1}{j+1}')
+        element_name_list.append(f"_{i+1}{j+1}")
 element_value_list = [getattr(test_mat, attr) for attr in element_name_list]
 assert mat3x3(*tuple(element_value_list)) == test_mat
 
-        
+
 # test copy
 test_mat_copy = test_mat.copy()
 assert test_mat is not test_mat_copy
@@ -234,16 +249,14 @@ assert test_mat_copy == mat3x3.ones()
 # test set_identity
 test_mat_copy = test_mat.copy()
 test_mat_copy.set_identity()
-assert test_mat_copy == mat3x3([1, 0, 0,
-                                0, 1, 0,
-                                0, 0, 1])
+assert test_mat_copy == mat3x3([1, 0, 0, 0, 1, 0, 0, 0, 1])
 
 # test __getitem__
 for i, element in enumerate([getattr(test_mat, e) for e in element_name_list]):
-    assert test_mat[int(i/3), i%3] == element
+    assert test_mat[int(i / 3), i % 3] == element
 
 try:
-    test_mat[1,2,3]
+    test_mat[1, 2, 3]
     raise Exception('未能触发错误拦截, 此处应当报错 IndexError("index out of range")')
 except:
     pass
@@ -257,13 +270,11 @@ except:
 # test __setitem__
 test_mat_copy = test_mat.copy()
 for i, element in enumerate([getattr(test_mat_copy, e) for e in element_name_list]):
-    test_mat_copy[int(i/3), i%3] = list(range(9))[i]
-assert test_mat_copy == mat3x3([0,1,2,
-                                3,4,5,
-                                6,7,8])
+    test_mat_copy[int(i / 3), i % 3] = list(range(9))[i]
+assert test_mat_copy == mat3x3([0, 1, 2, 3, 4, 5, 6, 7, 8])
 
 try:
-    test_mat[1,2,3] = 1
+    test_mat[1, 2, 3] = 1
     raise Exception('未能触发错误拦截, 此处应当报错 TypeError("Mat3x3.__setitem__ takes a tuple of 2 integers")')
 except:
     pass
@@ -315,7 +326,7 @@ result_mat = test_mat_copy @ test_mat_copy_2
 correct_result_mat = mat3x3()
 for i in range(3):
     for j in range(3):
-        correct_result_mat[i, j] = sum([e1*e2 for e1, e2 in zip(get_row(test_mat_copy, i), get_col(test_mat_copy_2, j))])
+        correct_result_mat[i, j] = sum([e1 * e2 for e1, e2 in zip(get_row(test_mat_copy, i), get_col(test_mat_copy_2, j))])
 assert result_mat == correct_result_mat
 
 test_mat_copy.__imatmul__(test_mat_copy_2)
@@ -339,7 +350,6 @@ for i in range(3):
 assert result_mat == correct_result_mat
 
 
-
 # test __rmul__
 test_mat_copy = test_mat.copy()
 result_mat = 12.345 * test_mat_copy
@@ -354,7 +364,7 @@ assert result_mat == correct_result_mat
 # 此处测试不完全, 未验证正确性
 # test interface of "@" "matmul" "__matmul__" with vec3 and error handling
 test_mat_copy = test_mat.copy()
-test_mat_copy @ vec3(83,-9.12, 0.2983)
+test_mat_copy @ vec3(83, -9.12, 0.2983)
 try:
     test_mat_copy @ 12345
     raise Exception('未能拦截错误 BinaryOptError("@") 在处理表达式 test_mat_copy @ 12345')
@@ -384,7 +394,7 @@ assert mat3x3([0 for _ in range(9)]) == mat3x3.zeros()
 assert mat3x3([1 for _ in range(9)]) == mat3x3.ones()
 
 # test identity
-assert mat3x3([1,0,0,0,1,0,0,0,1]) == mat3x3.identity()
+assert mat3x3([1, 0, 0, 0, 1, 0, 0, 0, 1]) == mat3x3.identity()
 
 
 # test affine transformations-----------------------------------------------
@@ -392,10 +402,9 @@ assert mat3x3([1,0,0,0,1,0,0,0,1]) == mat3x3.identity()
 def trs(t, radian, s):
     cr = math.cos(radian)
     sr = math.sin(radian)
-    elements = [[s[0] * cr, -s[1] * sr, t[0]],
-                [s[0] * sr, s[1] * cr, t[1]],
-                [0.0, 0.0, 1.0]]
+    elements = [[s[0] * cr, -s[1] * sr, t[0]], [s[0] * sr, s[1] * cr, t[1]], [0.0, 0.0, 1.0]]
     return elements
+
 
 test_vec2_copy = test_vec2.copy()
 test_vec2_2_copy = test_vec2_2.copy()
@@ -403,25 +412,29 @@ test_vec2_2_copy = test_vec2_2.copy()
 test_vec2_list = [test_vec2_copy.x, test_vec2_copy.y]
 test_vec2_2_list = [test_vec2_2_copy.x, test_vec2_2_copy.y]
 
-radian = random.uniform(-10*math.pi, 10*math.pi)
+radian = random.uniform(-10 * math.pi, 10 * math.pi)
 
-assert mat_to_str_list(mat3x3.trs(test_vec2_copy, radian, test_vec2_2_copy)) == mat_list_to_str_list(trs(test_vec2_list, radian, test_vec2_2_list))
+assert mat_to_str_list(mat3x3.trs(test_vec2_copy, radian, test_vec2_2_copy)) == mat_list_to_str_list(
+    trs(test_vec2_list, radian, test_vec2_2_list)
+)
 
 a = mat3x3.zeros()
 a.set_trs(test_vec2_copy, radian, test_vec2_2_copy)
 assert a == mat3x3.trs(test_vec2_copy, radian, test_vec2_2_copy)
 
+
 # test is_affine
 def mat_is_affine(mat_list):
     return mat_list[2][0] == 0 and mat_list[2][1] == 0 and mat_list[2][2] == 1
+
 
 # 通过random.unifrom的返回值不可能是整数0或1, 因此认为test_mat不可能is_affine
 test_mat_copy = test_mat.copy()
 assert test_mat_copy.is_affine() == mat_is_affine(mat_to_list(test_mat_copy))
 
-test_mat_copy[2,0] = 0
-test_mat_copy[2,1] = 0
-test_mat_copy[2,2] = 1
+test_mat_copy[2, 0] = 0
+test_mat_copy[2, 1] = 0
+test_mat_copy[2, 2] = 1
 assert test_mat_copy.is_affine() == mat_is_affine(mat_to_list(test_mat_copy))
 
 
@@ -452,6 +465,7 @@ test_vec2_copy = test_vec2.copy()
 temp_vec2 = test_mat_copy.transform_vector(test_vec2_copy)
 
 import c
+
 a = vec2(1, 2)
 b = a.to_struct()
 assert a.sizeof() == 8
@@ -461,6 +475,7 @@ assert vec2.from_struct(b) == a
 val = vec2.angle(vec2(-1, 0), vec2(0, -1))
 assert 1.57 < val < 1.58
 
+
 # test about staticmethod
 class mymat3x3(mat3x3):
     def f(self):
@@ -468,7 +483,8 @@ class mymat3x3(mat3x3):
         _1 = super().zeros()
         _2 = mat3x3.zeros()
         return _0 == _1 == _2
-    
+
+
 assert mymat3x3().f()
 
 
@@ -488,4 +504,3 @@ assert c == vec4(5, 6, 7, 8)
 d = mat3x3.identity()
 assert d.assign(mat3x3.zeros()) is None
 assert d == mat3x3.zeros()
-

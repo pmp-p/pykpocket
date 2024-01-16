@@ -3,6 +3,7 @@ PREFIX = 32338
 
 # exit(0)
 
+
 class Node:
     def __init__(self):
         self.children = {}
@@ -84,7 +85,7 @@ def find(upper_bound, prefix):
     head = generate_trie(primes.to_list())
     for ch in str_prefix:
         head = head.children.get(ch)
-        if head is None:    # either ch does not exist or the value is None
+        if head is None:  # either ch does not exist or the value is None
             return None
 
     queue, result = [(head, str_prefix)], []
@@ -105,6 +106,7 @@ def verify():
     if left != right:
         print(f"{left} != {right}")
         exit(1)
+
 
 verify()
 results = find(UPPER_BOUND, PREFIX)

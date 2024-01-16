@@ -1,12 +1,12 @@
 # test int literals
-assert 0xffff == 65535
+assert 0xFFFF == 65535
 assert 0xAAFFFF == 11206655
-assert 0x7fffffff == 2147483647
-assert -0xffff == -65535
+assert 0x7FFFFFFF == 2147483647
+assert -0xFFFF == -65535
 assert -0xAAFFFF == -11206655
-assert -0x7fffffff == -2147483647
+assert -0x7FFFFFFF == -2147483647
 # test 64-bit
-assert 2**60-1 + 546 - 0xfffffffffffff == 1148417904979477026
+assert 2**60 - 1 + 546 - 0xFFFFFFFFFFFFF == 1148417904979477026
 
 # test oct literals
 assert 0o1234 == 668
@@ -33,7 +33,7 @@ assert -1 + 1 == 0
 assert -1 - 1 == -2
 assert 4 * -1 == -4
 assert 5 % 2 == 1
-assert 2 ** 3 == 8
+assert 2**3 == 8
 assert 4 // 2 == 2
 assert 5 // 2 == 2
 
@@ -49,8 +49,8 @@ x //= 2
 assert x == 3
 
 # test __str__, __repr__
-assert str(1) == '1'
-assert repr(1) == '1'
+assert str(1) == "1"
+assert repr(1) == "1"
 
 # test int()
 assert int(1) == 1
@@ -72,9 +72,9 @@ assert 12 ^ 1 == 13
 # test high precision int pow
 assert 7**21 == 558545864083284007
 assert 2**60 == 1152921504606846976
-assert -2**60 == -1152921504606846976
+assert -(2**60) == -1152921504606846976
 assert 4**13 == 67108864
-assert (-4)**13 == -67108864
+assert (-4) ** 13 == -67108864
 
 assert ~3 == -4
 assert ~-3 == 2

@@ -2,17 +2,19 @@
 def heappush(heap, item):
     """Push item onto heap, maintaining the heap invariant."""
     heap.append(item)
-    _siftdown(heap, 0, len(heap)-1)
+    _siftdown(heap, 0, len(heap) - 1)
+
 
 def heappop(heap):
     """Pop the smallest item off the heap, maintaining the heap invariant."""
-    lastelt = heap.pop()    # raises appropriate IndexError if heap is empty
+    lastelt = heap.pop()  # raises appropriate IndexError if heap is empty
     if heap:
         returnitem = heap[0]
         heap[0] = lastelt
         _siftup(heap, 0)
         return returnitem
     return lastelt
+
 
 def heapreplace(heap, item):
     """Pop and return the current smallest value, and add the new item.
@@ -25,10 +27,11 @@ def heapreplace(heap, item):
         if item > heap[0]:
             item = heapreplace(heap, item)
     """
-    returnitem = heap[0]    # raises appropriate IndexError if heap is empty
+    returnitem = heap[0]  # raises appropriate IndexError if heap is empty
     heap[0] = item
     _siftup(heap, 0)
     return returnitem
+
 
 def heappushpop(heap, item):
     """Fast version of a heappush followed by a heappop."""
@@ -36,6 +39,7 @@ def heappushpop(heap, item):
         item, heap[0] = heap[0], item
         _siftup(heap, 0)
     return item
+
 
 def heapify(x):
     """Transform list into a heap, in-place, in O(len(x)) time."""
@@ -45,8 +49,9 @@ def heapify(x):
     # or i < (n-1)/2.  If n is even = 2*j, this is (2*j-1)/2 = j-1/2 so
     # j-1 is the largest, which is n//2 - 1.  If n is odd = 2*j+1, this is
     # (2*j+1-1)/2 = j so j-1 is the largest, and that's again n//2-1.
-    for i in reversed(range(n//2)):
+    for i in reversed(range(n // 2)):
         _siftup(x, i)
+
 
 # 'heap' is a heap at all indices >= startpos, except possibly for pos.  pos
 # is the index of a leaf with a possibly out-of-order value.  Restore the
@@ -65,12 +70,13 @@ def _siftdown(heap, startpos, pos):
         break
     heap[pos] = newitem
 
+
 def _siftup(heap, pos):
     endpos = len(heap)
     startpos = pos
     newitem = heap[pos]
     # Bubble up the smaller child until hitting a leaf.
-    childpos = 2*pos + 1    # leftmost child position
+    childpos = 2 * pos + 1  # leftmost child position
     while childpos < endpos:
         # Set childpos to index of smaller child.
         rightpos = childpos + 1
@@ -79,7 +85,7 @@ def _siftup(heap, pos):
         # Move the smaller child up.
         heap[pos] = heap[childpos]
         pos = childpos
-        childpos = 2*pos + 1
+        childpos = 2 * pos + 1
     # The leaf at pos is empty now.  Put newitem there, and bubble it up
     # to its final resting place (by sifting its parents down).
     heap[pos] = newitem
